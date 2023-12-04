@@ -5,7 +5,7 @@
 
 plex_url="http://yourplexip:32400"
 token="yourplextoken"
-zurg_mount="/mnt/zurg" # replace with your zurg mount
+zurg_mount="/mnt/realdebrid" # replace with your zurg mount
 
 # Get the list of section IDs
 section_ids=$(curl -sLX GET "$plex_url/library/sections" -H "X-Plex-Token: $token" | xmllint --xpath "//Directory/@key" - | sed 's/key="//g' | tr '"' '\n')
