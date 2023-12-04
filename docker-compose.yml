@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   zurg:
-    image: ghcr.io/debridmediamanager/zurg-testing:latest
+    image: ghcr.io/debridmediamanager/zurg-testing:v0-nonfuse
     restart: unless-stopped
     ports:
       - 9999:9999
@@ -14,11 +14,11 @@ services:
     image: rclone/rclone:latest
     restart: unless-stopped
     environment:
-      TZ: Europe/Berlin
+      TZ: America/New_York
       PUID: 1000
       PGID: 1000
     volumes:
-      - /mnt/zurg:/data:rshared
+      - /mnt/realdebrid:/data:rshared
       - ./rclone.conf:/config/rclone/rclone.conf
     cap_add:
       - SYS_ADMIN
@@ -28,7 +28,7 @@ services:
       - /dev/fuse:/dev/fuse:rwm
     depends_on:
       - zurg
-    command: "mount zurg: /data --allow-non-empty --allow-other --uid 1000 --gid 1000 --dir-cache-time 10s"
+    command: "mount zurg: /data --allow-non-empty --allow-other --uid=1000 --gid=1000 --dir-cache-time 10s --read-only"
 
 volumes:
   zurgdata:
